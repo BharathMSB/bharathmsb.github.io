@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bharath M S :: Starfleet Personnel File</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;800&family=Rajdhani:wght@300;400;600;700&family=Audiowide&display=swap" rel="stylesheet">
+<style>
+:root{--sp:#03060f;--dp:#060d1a;--pb:rgba(6,18,42,.85);--bdr:rgba(64,180,255,.22);--bl:#40b4ff;--bg:rgba(64,180,255,.35);--bf:rgba(64,180,255,.06);--cy:#00f5d4;--cg:rgba(0,245,212,.3);--gd:#ffd166;--rd:#ff4d6d;--tx:#a8d4f5;--dm:#4a7fa5;--wh:#e8f4ff}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--sp);color:var(--tx);font-family:'Rajdhani',sans-serif;font-weight:400;overflow-x:hidden;cursor:none;min-height:100vh}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(64,180,255,.01) 3px,rgba(64,180,255,.01) 4px);pointer-events:none;z-index:1}
+#sf{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+#nb{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at 20% 20%,rgba(64,100,255,.1) 0%,transparent 55%),radial-gradient(ellipse at 80% 80%,rgba(0,245,212,.06) 0%,transparent 50%),radial-gradient(ellipse at 60% 30%,rgba(120,40,200,.07) 0%,transparent 45%)}
+.star{position:absolute;background:white;border-radius:50%;animation:tw var(--td) ease-in-out infinite alternate}
+@keyframes tw{from{opacity:.1}to{opacity:.9}}
+
+#cur{position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cur svg{width:28px;height:28px;animation:csp 4s linear infinite}
+@keyframes csp{to{transform:rotate(360deg)}}
+
+#intro{position:fixed;inset:0;background:var(--sp);z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0}
+.ir{position:absolute;width:360px;height:360px;pointer-events:none}
+.irg{position:absolute;inset:0;border-radius:50%;border:1px solid var(--bl);opacity:0;animation:rp 4s ease-out infinite}
+.irg:nth-child(1){animation-delay:0s}.irg:nth-child(2){animation-delay:1.3s}.irg:nth-child(3){animation-delay:2.6s}
+@keyframes rp{0%{transform:scale(.3);opacity:.6}100%{transform:scale(1.5);opacity:0}}
+.ilogo{font-family:'Audiowide',sans-serif;font-size:.75rem;color:var(--bl);letter-spacing:7px;text-transform:uppercase;margin-bottom:48px;opacity:0;animation:fi 1s .5s forwards}
+.iname{font-family:'Audiowide',sans-serif;font-size:clamp(2rem,7vw,4.8rem);color:var(--wh);letter-spacing:5px;text-shadow:0 0 40px var(--bg),0 0 80px var(--bg);opacity:0;animation:fi 1s 1.2s forwards}
+.isub{font-family:'Rajdhani',sans-serif;font-weight:300;font-size:clamp(.85rem,2vw,1.1rem);color:var(--cy);letter-spacing:9px;margin-top:14px;text-transform:uppercase;opacity:0;animation:fi 1s 2s forwards}
+.iline{width:0;height:1px;background:linear-gradient(90deg,transparent,var(--bl),var(--cy),transparent);margin:36px 0;animation:lg 1.5s 2.5s forwards}
+@keyframes lg{to{width:min(480px,80vw)}}
+.iprompt{font-family:'Rajdhani',sans-serif;font-size:.95rem;color:var(--dm);letter-spacing:4px;opacity:0;animation:fi 1s 3.2s forwards,pu 2s 3.5s ease-in-out infinite}
+@keyframes fi{to{opacity:1}}@keyframes pu{0%,100%{opacity:.5}50%{opacity:1}}
+
+#nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:11px;z-index:100}
+.nd{width:7px;height:7px;border:1px solid rgba(64,180,255,.4);background:transparent;transform:rotate(45deg);cursor:pointer;transition:all .3s;position:relative}
+.nd:hover,.nd.active{background:var(--bl);box-shadow:0 0 10px var(--bg);border-color:var(--bl)}
+.nl{position:absolute;right:15px;top:50%;transform:translateY(-50%) rotate(-45deg);font-size:.56rem;color:var(--bl);white-space:nowrap;opacity:0;transition:opacity .2s;letter-spacing:2px;font-family:'Audiowide',sans-serif}.nd:hover .nl{opacity:1}
+
+#main{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:28px 20px;opacity:0;transition:opacity 1s}
+#main.on{opacity:1}
+.hud{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--bdr);padding-bottom:10px;margin-bottom:26px;font-family:'Audiowide',sans-serif;font-size:.55rem;letter-spacing:3px;color:var(--dm);flex-wrap:wrap;gap:7px}
+.hud .hl{color:var(--bl)}.hud .hr{display:flex;gap:18px}
+.live{color:var(--cy);animation:pu 2s infinite}
+
+.pn{background:var(--pb);border:1px solid var(--bdr);padding:26px;backdrop-filter:blur(10px);position:relative;overflow:hidden;transition:border-color .3s;animation:fu .6s both}
+.pn::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bl),var(--cy),transparent);opacity:.5}
+.pn:hover{border-color:rgba(64,180,255,.42)}
+.ph{font-family:'Audiowide',sans-serif;font-size:.6rem;letter-spacing:4px;color:var(--bl);text-transform:uppercase;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:9px}
+.ph .phi{color:var(--cy);font-size:.85rem}.ph .phl{flex:1;height:1px;background:linear-gradient(90deg,var(--bdr),transparent)}
+.hex{clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px))}
+@keyframes fu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* HERO */
+.hero{background:var(--pb);border:1px solid var(--bdr);padding:36px;backdrop-filter:blur(10px);margin-bottom:18px;position:relative;clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px))}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bl),var(--cy),transparent)}
+.hw{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:start;flex-wrap:wrap}
+@media(max-width:680px){.hw{grid-template-columns:1fr}}
+.rb{display:inline-flex;align-items:center;gap:7px;background:rgba(64,180,255,.07);border:1px solid rgba(64,180,255,.28);padding:5px 13px;font-size:.6rem;letter-spacing:3px;color:var(--cy);font-family:'Audiowide',sans-serif;margin-bottom:18px;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%)}
+.rb::before{content:'⬡';font-size:.75rem}
+.hn{font-family:'Audiowide',sans-serif;font-size:clamp(1.7rem,4.5vw,3rem);color:var(--wh);letter-spacing:3px;text-shadow:0 0 28px var(--bg);line-height:1.1;margin-bottom:7px}
+.ht{font-family:'Exo 2',sans-serif;font-size:clamp(.78rem,1.8vw,1rem);font-weight:300;color:var(--bl);letter-spacing:5px;text-transform:uppercase;margin-bottom:22px}
+.hb{font-size:.9rem;font-weight:300;color:var(--dm);line-height:1.9;max-width:540px;border-left:2px solid var(--bdr);padding-left:14px;margin-bottom:20px}
+.hb strong{color:var(--tx);font-weight:600}
+.hl2{height:1px;background:linear-gradient(90deg,transparent,var(--bl),var(--cy),transparent);margin:6px 0;opacity:.3}
+.hspec{font-size:.7rem;color:var(--dm);letter-spacing:2px;margin-top:8px}
+.shud{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.ow{position:relative;width:110px;height:110px}
+.oc{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:radial-gradient(circle,rgba(64,180,255,.4) 0%,rgba(64,180,255,.05) 70%);border:1px solid rgba(64,180,255,.5);box-shadow:0 0 18px var(--bg),inset 0 0 18px rgba(64,180,255,.1);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.or{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(64,180,255,.2);animation:orb 6s linear infinite}
+.or::after{content:'';position:absolute;top:-3px;left:50%;width:6px;height:6px;background:var(--cy);border-radius:50%;box-shadow:0 0 7px var(--cy)}
+.or:nth-child(2){inset:-14px;animation-duration:10s;animation-direction:reverse;border-color:rgba(0,245,212,.14)}
+.or:nth-child(2)::after{background:var(--bl);box-shadow:0 0 7px var(--bl)}
+@keyframes orb{to{transform:rotate(360deg)}}
+.stc{background:var(--pb);border:1px solid var(--bdr);padding:18px;min-width:190px;backdrop-filter:blur(10px);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+.sr2{display:flex;justify-content:space-between;gap:18px;font-size:.7rem;letter-spacing:1px;padding:5px 0;border-bottom:1px solid rgba(64,180,255,.07)}
+.sr2:last-child{border:none}.sk{color:var(--dm)}.sv{color:var(--cy);font-weight:600}
+.sv.on{color:#4ade80;animation:pu 2s infinite}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:18px}
+.mb{margin-bottom:18px}
+@media(max-width:800px){.g3{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){.g2,.g3{grid-template-columns:1fr}}
+
+.sr3{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:18px}
+@media(max-width:640px){.sr3{grid-template-columns:repeat(2,1fr)}}
+.sb{background:var(--pb);border:1px solid var(--bdr);padding:18px;text-align:center;backdrop-filter:blur(8px);transition:all .3s;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px));animation:fu .5s both}
+.sb:hover{border-color:rgba(64,180,255,.45);box-shadow:0 0 18px var(--bf)}
+.sb::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bl),transparent);animation:sh 3s linear infinite}
+@keyframes sh{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.sn{font-family:'Audiowide',sans-serif;font-size:1.7rem;color:var(--wh);text-shadow:0 0 18px var(--bg);display:block}
+.sl{font-size:.58rem;letter-spacing:2px;color:var(--dm);margin-top:5px;display:block;text-transform:uppercase}
+
+.ski{margin-bottom:15px}
+.skr{display:flex;justify-content:space-between;font-size:.82rem;font-weight:600;color:var(--tx);margin-bottom:6px;letter-spacing:1px}
+.skr span:last-child{color:var(--cy);font-family:'Audiowide',sans-serif;font-size:.58rem}
+.skt{height:4px;background:rgba(64,180,255,.07);border:1px solid rgba(64,180,255,.14);border-radius:2px;overflow:hidden;position:relative}
+.skf{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--bl),var(--cy));box-shadow:0 0 7px var(--cg);animation:fb 1.8s 1s both}
+.skf::after{content:'';position:absolute;right:0;top:-2px;width:5px;height:8px;background:var(--wh);box-shadow:0 0 5px var(--cy);border-radius:1px}
+@keyframes fb{from{width:0% !important}}
+
+.tc{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px}
+.tg{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:.72rem;letter-spacing:2px;padding:5px 13px;border:1px solid rgba(64,180,255,.28);color:var(--bl);background:rgba(64,180,255,.03);clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);cursor:default;transition:all .2s;text-transform:uppercase}
+.tg:hover{background:rgba(64,180,255,.14);border-color:var(--bl);color:var(--wh);box-shadow:0 0 11px var(--bg)}
+
+.ex{padding:18px;border:1px solid var(--bdr);margin-bottom:13px;position:relative;transition:all .3s;clip-path:polygon(0 0,calc(100% - 11px) 0,100% 11px,100% 100%,0 100%)}
+.ex:hover{border-color:rgba(64,180,255,.42);background:rgba(64,180,255,.03)}
+.ex::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--cy),var(--bl),transparent)}
+.eco{font-family:'Audiowide',sans-serif;font-size:.58rem;letter-spacing:3px;color:var(--cy);margin-bottom:4px}
+.er2{font-family:'Exo 2',sans-serif;font-weight:700;font-size:1rem;color:var(--wh);margin-bottom:3px}
+.edt{font-size:.7rem;color:var(--dm);letter-spacing:1px;margin-bottom:9px}
+.ebl{list-style:none}
+.ebl li{font-size:.8rem;color:var(--dm);padding-left:15px;position:relative;margin-bottom:4px;line-height:1.75}
+.ebl li::before{content:'◈';position:absolute;left:0;color:var(--bl);font-size:.58rem;top:3px}
+.ebl li strong{color:var(--tx)}
+.etg{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.etg span{font-size:.6rem;color:var(--cy);border:1px solid rgba(0,245,212,.22);padding:2px 7px}
+
+.pj{border:1px solid var(--bdr);background:rgba(6,18,42,.6);padding:18px;transition:all .3s;position:relative;overflow:hidden;clip-path:polygon(0 0,calc(100% - 13px) 0,100% 13px,100% 100%,13px 100%,0 calc(100% - 13px))}
+.pj:hover{border-color:rgba(64,180,255,.48);background:rgba(64,180,255,.04)}
+.pn2{font-family:'Audiowide',sans-serif;font-size:.52rem;letter-spacing:3px;color:var(--dm);margin-bottom:5px}
+.pt{font-family:'Exo 2',sans-serif;font-weight:700;font-size:.92rem;color:var(--wh);margin-bottom:7px;letter-spacing:1px}
+.pd{font-size:.78rem;color:var(--dm);line-height:1.8;margin-bottom:10px}
+.ps{display:flex;flex-wrap:wrap;gap:5px}
+.ps span{font-size:.62rem;color:var(--cy);border:1px solid rgba(0,245,212,.22);padding:2px 8px;letter-spacing:1px}
+
+.ct{display:flex;gap:15px;align-items:center;border:1px solid var(--bdr);padding:15px;margin-bottom:11px;transition:all .3s;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,0 100%)}
+.ct:hover{border-color:rgba(255,209,102,.38);background:rgba(255,209,102,.03)}
+.ci{font-size:1.8rem;min-width:38px;filter:drop-shadow(0 0 7px rgba(255,209,102,.5))}
+.cn{font-family:'Audiowide',sans-serif;font-size:.65rem;letter-spacing:2px;color:var(--gd);margin-bottom:3px}
+.cm{font-size:.7rem;color:var(--dm)}
+
+.eu{border:1px solid var(--bdr);padding:18px;display:flex;gap:15px;align-items:flex-start;margin-bottom:11px;transition:all .3s;clip-path:polygon(0 0,calc(100% - 11px) 0,100% 11px,100% 100%,0 100%)}
+.eu:hover{border-color:rgba(64,180,255,.38)}
+.ei{font-size:1.8rem;min-width:38px}
+.ed{font-family:'Audiowide',sans-serif;font-size:.65rem;letter-spacing:2px;color:var(--wh);margin-bottom:4px}
+.es{font-size:.8rem;color:var(--bl);margin-bottom:3px}.ey{font-size:.68rem;color:var(--dm)}
+
+.aw{display:flex;gap:13px;align-items:flex-start;border:1px solid rgba(64,180,255,.12);padding:13px;margin-bottom:9px;transition:all .3s;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,0 100%)}
+.aw:hover{border-color:rgba(64,180,255,.32);background:rgba(64,180,255,.03)}
+.ai{font-size:1.3rem;min-width:26px}
+.at{font-size:.8rem;color:var(--cy);margin-bottom:2px;font-weight:600}
+.ad2{font-size:.72rem;color:var(--dm)}
+
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.cg{grid-template-columns:1fr}}
+.cc{display:flex;gap:13px;align-items:center;border:1px solid var(--bdr);padding:14px;text-decoration:none;color:inherit;transition:all .3s;clip-path:polygon(0 0,calc(100% - 9px) 0,100% 9px,100% 100%,9px 100%,0 calc(100% - 9px))}
+.cc:hover{border-color:var(--cy);background:rgba(0,245,212,.04);box-shadow:0 0 14px rgba(0,245,212,.1)}
+.ciw{width:36px;height:36px;border:1px solid rgba(64,180,255,.28);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;background:rgba(64,180,255,.05);flex-shrink:0}
+.clb{font-size:.58rem;color:var(--dm);letter-spacing:2px;display:block;text-transform:uppercase}
+.cvl{font-size:.8rem;color:var(--tx);font-weight:600}
+
+.ft{border-top:1px solid var(--bdr);padding:20px;text-align:center;font-size:.62rem;color:var(--dm);letter-spacing:2px;margin-top:20px}
+.ft span{color:var(--bl)}
+.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.4s}
+section{margin-bottom:18px}
+</style>
+</head>
+<body>
+<div id="sf"></div><div id="nb"></div>
+<div id="cur"><svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="12" stroke="#40b4ff" stroke-width="1" opacity=".6"/><circle cx="14" cy="14" r="2" fill="#00f5d4"/><line x1="14" y1="2" x2="14" y2="8" stroke="#00f5d4" stroke-width="1.5"/><line x1="14" y1="20" x2="14" y2="26" stroke="#00f5d4" stroke-width="1.5"/><line x1="2" y1="14" x2="8" y2="14" stroke="#00f5d4" stroke-width="1.5"/><line x1="20" y1="14" x2="26" y2="14" stroke="#00f5d4" stroke-width="1.5"/></svg></div>
+
+<div id="intro">
+  <div class="ir"><div class="irg"></div><div class="irg"></div><div class="irg"></div></div>
+  <div class="ilogo">⬡ Starfleet Personnel Database · SRIB-BLR-2026 ⬡</div>
+  <div class="iname">BHARATH M S</div>
+  <div class="isub">Software Engineer Lead [Full Stack] · Capgemini · Client: Samsung R&D</div>
+  <div class="iline"></div>
+  <div class="iprompt">[ CLICK OR PRESS ANY KEY TO ACCESS FILE ]</div>
+</div>
+
+<div id="nav">
+  <div class="nd active" data-t="h0"><span class="nl">PROFILE</span></div>
+  <div class="nd" data-t="h1"><span class="nl">STATS</span></div>
+  <div class="nd" data-t="h2"><span class="nl">SKILLS</span></div>
+  <div class="nd" data-t="h3"><span class="nl">MISSIONS</span></div>
+  <div class="nd" data-t="h4"><span class="nl">SYSTEMS</span></div>
+  <div class="nd" data-t="h5"><span class="nl">TRAINING</span></div>
+  <div class="nd" data-t="h6"><span class="nl">HONOURS</span></div>
+  <div class="nd" data-t="h7"><span class="nl">COMM</span></div>
+</div>
+
+<div id="main">
+  <div class="hud">
+    <div class="hl">⬡ PERSONNEL FILE :: SRIB-BLR-2026 · CLEARANCE: ALPHA-7</div>
+    <div class="hr"><span class="live">● LIVE</span><span id="ldate">--</span><span id="lclock">--:--:--</span><span>NODE: SAMSUNG-SRIB-BLR</span></div>
+  </div>
+
+  <section id="h0">
+    <div class="hero">
+      <div class="hw">
+        <div>
+          <div class="rb">PROFESSIONAL 2· RANK: SOFTWARE ENGINEER LEAD</div>
+          <div class="hn">BHARATH M S</div>
+          <div class="ht">Full Stack Engineer · Capgemini · Client : Samsung Cloud Services</div>
+          <div class="hb">
+            <strong>8+ years</strong> of enterprise engineering excellence. <strong>Software Engineer Lead (Professional 2)</strong> at <strong>Capgemini</strong>, deployed to <strong>Samsung R&D Institute Bangalore (SRIB)</strong> — working in the <strong>Search-as-a-Service</strong> platform now live across <strong>60+ countries</strong>.<br><br>
+            Reverse-engineered 20,000+ lines of minified code with zero access or tooling. Scaled a POC into a global product. Expert in <strong>Java/Spring Boot</strong>, <strong>React</strong>, <strong>AWS (Certified)</strong>, <strong>OpenSearch</strong> and <strong>Conversational AI</strong>.<br><br>
+            <span style="color:var(--bl);opacity:.7">Actively seeking learning opportunities &amp; very keen to adapt and learn things.</span>
+          </div>
+          <div class="hl2"></div>
+          <div class="hspec">⬡ CORE DOMAINS: SEMANTIC SEARCH · FULL STACK · CLOUD ARCHITECTURE · i18n/l10n · CONV. AI</div>
+        </div>
+        <div class="shud">
+          <div class="ow">
+            <div class="or"></div><div class="or"></div>
+            <div class="oc">👨‍💻</div>
+          </div>
+          <div class="stc">
+            <div class="sr2"><span class="sk">STATUS</span><span class="sv on">● ONLINE</span></div>
+            <div class="sr2"><span class="sk">EXP</span><span class="sv">8+ YEARS</span></div>
+            <div class="sr2"><span class="sk">EMPLOYER</span><span class="sv">CAPGEMINI</span></div>
+            <div class="sr2"><span class="sk">DESIG.</span><span class="sv" style="font-size:.58rem">PROF.2–SE LEAD</span></div>
+            <div class="sr2"><span class="sk">CLIENT</span><span class="sv">SAMSUNG SRIB</span></div>
+            <div class="sr2"><span class="sk">DEPLOY</span><span class="sv">60+ COUNTRIES</span></div>
+            <div class="sr2"><span class="sk">CERT</span><span class="sv">AWS ASSOC.</span></div>
+            <div class="sr2"><span class="sk">CLOCK</span><span class="sv" id="hck">--:--</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="h1">
+    <div class="sr3">
+      <div class="sb d1" style="position:relative"><span class="sn">8+</span><span class="sl">Years Active</span></div>
+      <div class="sb d2" style="position:relative"><span class="sn" id="c1">0</span><span class="sl">Countries Live</span></div>
+      <div class="sb d3" style="position:relative"><span class="sn" id="c2">0</span><span class="sl">Tech Stack</span></div>
+      <div class="sb d4" style="position:relative"><span class="sn" id="c3">0</span><span class="sl">Awards Won</span></div>
+    </div>
+  </section>
+
+  <section id="h2">
+    <div class="g2">
+      <div class="pn d1">
+        <div class="ph"><span class="phi">⬡</span> Skill Matrix <div class="phl"></div></div>
+        <div class="ski"><div class="skr"><span>Java / Spring Boot</span><span>5 YRS</span></div><div class="skt"><div class="skf" style="width:95%"></div></div></div>
+        <div class="ski"><div class="skr"><span>REST API / Microservices</span><span>5 YRS</span></div><div class="skt"><div class="skf" style="width:93%"></div></div></div>
+        <div class="ski"><div class="skr"><span>React JS / Node.js</span><span>4 YRS</span></div><div class="skt"><div class="skf" style="width:82%"></div></div></div>
+        <div class="ski"><div class="skr"><span>AWS (ECS, S3, RDS, OpenSearch)</span><span>CERTIFIED</span></div><div class="skt"><div class="skf" style="width:80%"></div></div></div>
+        <div class="ski"><div class="skr"><span>OpenSearch / Elasticsearch</span><span>2 YRS</span></div><div class="skt"><div class="skf" style="width:68%"></div></div></div>
+        <div class="ski"><div class="skr"><span>Conversational AI / Chatbots</span><span>2 YRS</span></div><div class="skt"><div class="skf" style="width:68%"></div></div></div>
+        <div class="ski"><div class="skr"><span>HTML / CSS / JS / Bootstrap</span><span>4 YRS</span></div><div class="skt"><div class="skf" style="width:82%"></div></div></div>
+        <div class="ski"><div class="skr"><span>CI/CD · Jenkins · AEM · GitHub Actions</span><span>3 YRS</span></div><div class="skt"><div class="skf" style="width:74%"></div></div></div>
+      </div>
+      <div class="pn d2">
+        <div class="ph"><span class="phi">◈</span> Loaded Modules <div class="phl"></div></div>
+        <div style="font-size:.65rem;color:var(--dm);margin-bottom:8px;letter-spacing:2px">// BACKEND</div>
+        <div class="tc" style="margin-bottom:14px">
+          <div class="tg">Java</div><div class="tg">Spring Boot</div><div class="tg">Spring MVC</div>
+          <div class="tg">Tomcat</div><div class="tg">REST API</div><div class="tg">API Gateway</div>
+          <div class="tg">Microservices</div><div class="tg">Redis</div>
+        </div>
+        <div style="font-size:.65rem;color:var(--dm);margin-bottom:8px;letter-spacing:2px">// FRONTEND</div>
+        <div class="tc" style="margin-bottom:14px">
+          <div class="tg">React JS</div><div class="tg">Node.js</div><div class="tg">JavaScript</div>
+          <div class="tg">HTML5</div><div class="tg">CSS3</div><div class="tg">Bootstrap</div><div class="tg">AEM</div>
+        </div>
+        <div style="font-size:.65rem;color:var(--dm);margin-bottom:8px;letter-spacing:2px">// CLOUD & DATA</div>
+        <div class="tc">
+          <div class="tg">AWS ECS</div><div class="tg">AWS S3</div><div class="tg">AWS RDS</div>
+          <div class="tg">OpenSearch</div><div class="tg">MySQL</div><div class="tg">Jenkins</div>
+          <div class="tg">GitHub Actions</div><div class="tg">CloudWatch</div><div class="tg">Grafana</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="h3">
+    <div class="pn mb hex">
+      <div class="ph"><span class="phi">🛸</span> Mission Log — Work Experience <div class="phl"></div></div>
+      <div class="ex">
+        <div class="eco">⬡ Capgemini &nbsp;|&nbsp; Designation: Professional 2 – Software Engineer Lead</div>
+        <div class="er2">Software Engineer Lead — Full Stack &nbsp;<span style="color:var(--cy);font-size:.85rem">· Client: Samsung R&D Institute Bangalore (SRIB)</span></div>
+        <div class="edt">📅 July 2022 — Present &nbsp;·&nbsp; 📍 Samsung R&D Office, Bangalore &nbsp;·&nbsp; Project: Cloud Services — Search Platform</div>
+        <ul class="ebl">
+          <li><strong>Search-as-a-Service — FE Stream Lead:</strong> Served as <strong>Frontend Stream Lead</strong> for Samsung's semantic product search (multi-stream project: Ingestion, BE, FE, ML). Owned end-to-end FE delivery — architecture, development, and global rollout across <strong>60+ countries</strong>.</li>
+          <li><strong>Zero-Access POC:</strong> Reverse-engineered <strong>20,000+ lines of minified frontend code</strong> — no repo access (Samsung HQ restriction 2022). Analysed via browser HTML downloads, rebuilt API response structures manually.</li>
+          <li><strong>Global Rollout:</strong> Single country launch → A/B tested vs legacy → superior conversions → scaled to <strong>60+ countries including 19+ language markets</strong>. Zero downtime across all rollouts.</li>
+          <li><strong>React Modernisation:</strong> Migrated legacy minified JS/HTML to clean <strong>React component architecture</strong>. Fully re-engineered from analysis — no original source available.</li>
+          <li><strong>i18n &amp; l10n:</strong> Led frontend internationalisation across <strong>45+ countries</strong>. AEM-based deployments via WMC for all language markets.</li>
+          <li><strong>UX 2.0 Rollout:</strong> Major UX redesign delivered across <strong>50+ countries with zero downtime</strong>.</li>
+          <li><strong>Backend Contribution:</strong> Actively contributed to backend tasks — API integrations, data structuring, service-layer work — while reporting to BE Lead.</li>
+          <li><strong>Ops Excellence Tool:</strong> Building self-serve platform (AWS + S3 + GitHub + CloudWatch + Grafana + GitHub Actions) — query boosting, country ingestion, monitoring. Near go-live in major Samsung market.</li>
+          <li><strong>Awards:</strong> Won multiple <strong>SRIB Annual Awards</strong> &amp; <strong>Capgemini WOW Award</strong> for team excellence and client appreciation.</li>
+        </ul>
+        <div class="etg"><span>Java</span><span>Spring Boot</span><span>React JS</span><span>Node.js</span><span>OpenSearch</span><span>Redis</span><span>AWS ECS/S3/RDS</span><span>MySQL</span><span>AEM</span><span>API Gateway</span><span>Jenkins</span><span>GitHub Actions</span><span>CloudWatch</span><span>Grafana</span></div>
+      </div>
+      <div class="ex">
+        <div class="eco">⬡ Accenture, Bangalore</div>
+        <div class="er2">Application Developer</div>
+        <div class="edt">📅 September 2017 — July 2022 · 4 Years 10 Months</div>
+        <div style="font-size:.65rem;color:var(--cy);margin:8px 0 5px;letter-spacing:2px">// SAP NextGen ADAO (Jul 2020 – Jul 2022) · Client: SAP</div>
+        <ul class="ebl">
+          <li>Developed Java Spring Boot application from scratch to validate &amp; enrich data from external systems for SAP Conversational AI integration.</li>
+          <li>Extended chatbot application with additional business functionality; conducted code reviews and guided team members to meet delivery timelines.</li>
+          <li>Defect logging, analysis, prioritisation &amp; resolution tracking via JIRA; collaborated with stakeholders on critical issues.</li>
+        </ul>
+        <div style="font-size:.65rem;color:var(--cy);margin:10px 0 5px;letter-spacing:2px">// Specsavers Financial Solutions (Dec 2017 – Jul 2020) · Client: Specsavers, UK</div>
+        <ul class="ebl">
+          <li>Java Enterprise backend for <strong>Specsavers Socrates</strong> retail application — UK market leader in contact lenses, largest home-delivery lens provider in Europe.</li>
+          <li>Built shell scripts to automate Level 3 Application Support manual processes, reducing recurring operational overhead.</li>
+          <li>Identified technology limitations in existing systems; implemented improvements across processes and methods.</li>
+          <li>Feature Team (Agile) for continuous delivery; root cause analysis, bug fixes, customer satisfaction improvements.</li>
+        </ul>
+        <div class="etg"><span>Java</span><span>Spring Boot</span><span>Spring Framework</span><span>SAP Conv. AI</span><span>SAP Cloud</span><span>REST API</span><span>SQL</span><span>Shell Scripting</span><span>GitHub</span><span>JIRA</span><span>Agile</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="h4">
+    <div class="pn mb">
+      <div class="ph"><span class="phi">🔭</span> Deployed Systems — Projects <div class="phl"></div></div>
+      <div class="g3">
+        <div class="pj">
+          <div class="pn2">SYS-001 · GLOBAL SEARCH PLATFORM</div>
+          <div class="pt">Samsung Search-as-a-Service</div>
+          <div class="pd">End-to-end semantic product search for Samsung's global catalog. Led FE. POC → 60+ countries. React migration from 20K+ lines minified code. i18n for 45+ countries. UX 2.0 with zero downtime. Better conversions proven via A/B testing.</div>
+          <div class="ps"><span>Java</span><span>Spring Boot</span><span>React</span><span>OpenSearch</span><span>AWS</span><span>AEM</span><span>Redis</span></div>
+        </div>
+        <div class="pj">
+          <div class="pn2">SYS-002 · INTERNAL TOOLING</div>
+          <div class="pt">Ops Excellence Tool</div>
+          <div class="pd">Self-serve config &amp; monitoring platform integrating AWS, S3, GitHub, CloudWatch &amp; Grafana. Enables query boosting, country ingestion triggers, performance dashboards — eliminating manual tasks. Near go-live in major Samsung market.</div>
+          <div class="ps"><span>React</span><span>Spring Boot</span><span>AWS</span><span>CloudWatch</span><span>Grafana</span><span>GitHub API</span></div>
+        </div>
+        <div class="pj">
+          <div class="pn2">SYS-003 · CONVERSATIONAL AI</div>
+          <div class="pt">SAP NextGen ADAO Chatbot</div>
+          <div class="pd">Java Spring Boot backend for SAP NextGen ADAO connecting external systems to SAP Conversational AI. Validates &amp; enriches data payloads. Platform connecting students, startups &amp; enterprises aligned to 17 UN Global Goals.</div>
+          <div class="ps"><span>Java</span><span>Spring Boot</span><span>SAP Conv. AI</span><span>REST API</span><span>SAP Cloud</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="h5">
+    <div class="pn mb">
+      <div class="ph"><span class="phi">🎓</span> Training &amp; Education <div class="phl"></div></div>
+      <div class="eu">
+        <div class="ei">🏛️</div>
+        <div>
+          <div class="ed">BE IN COMPUTER SCIENCE &amp; ENGINEERING</div>
+          <div class="es">Sir M. Visvesvaraya Institute of Technology, Bangalore</div>
+          <div class="ey">📅 2017 &nbsp;·&nbsp; Aggregate: 73.98% &nbsp;·&nbsp; 🏅 Gold Medal — Academic Excellence</div>
+        </div>
+      </div>
+      <div class="ct">
+        <div class="ci">☁️</div>
+        <div>
+          <div class="cn">AWS CERTIFIED DEVELOPER — ASSOCIATE</div>
+          <div class="cm">Amazon Web Services · Verified Cloud Engineering Certification</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="h6">
+    <div class="pn mb">
+      <div class="ph"><span class="phi">🏅</span> Achievement Badges — Honours &amp; Awards <div class="phl"></div></div>
+      <div class="aw"><div class="ai">🏆</div><div><div class="at">SRIB Annual Award — Multiple Years</div><div class="ad2">Samsung R&D Institute Bangalore — Team Excellence Awards for outstanding contribution to Search-as-a-Service, scaling from POC to 60+ countries globally.</div></div></div>
+      <div class="aw"><div class="ai">🌟</div><div><div class="at">Capgemini WOW Award</div><div class="ad2">Awarded by Capgemini in recognition of exceptional client appreciation from Samsung R&D — outstanding performance on the Search-as-a-Service programme.</div></div></div>
+      <div class="aw"><div class="ai">⭐</div><div><div class="at">Certificate of Excellence — Accenture Client Leadership</div><div class="ad2">Recognised by client leadership for exceptional delivery quality on SAP NextGen ADAO project.</div></div></div>
+      <div class="aw"><div class="ai">📋</div><div><div class="at">Client Appreciation — Accenture Onsite Team</div><div class="ad2">Recognised for critical documentation delivery that directly influenced key business process decisions.</div></div></div>
+      <div class="aw"><div class="ai">🥇</div><div><div class="at">Gold Medal — Academic Excellence</div><div class="ad2">BE Computer Science &amp; Engineering — Sir M. Visvesvaraya Institute of Technology, 2017.</div></div></div>
+    </div>
+  </section>
+
+  <section id="h7">
+    <div class="pn mb">
+      <div class="ph"><span class="phi">📡</span> Communications Array — Contact <div class="phl"></div></div>
+      <div class="cg">
+        <a href="mailto:msbharath.mvit@gmail.com" class="cc"><div class="ciw">📧</div><div><span class="clb">Email Channel</span><span class="cvl">msbharath.mvit@gmail.com</span></div></a>
+        <a href="tel:+918892969298" class="cc"><div class="ciw">📱</div><div><span class="clb">Mobile Comm</span><span class="cvl">+91-8892969298</span></div></a>
+        <a href="https://www.linkedin.com/in/bharath-m-s" class="cc"><div class="ciw">💼</div><div><span class="clb">LinkedIn</span><span class="cvl">Bharath M S</span></div></a>
+        <a href="#" class="cc"><div class="ciw">📍</div><div><span class="clb">Sector</span><span class="cvl">Bangalore, India</span></div></a>
+      </div>
+      <div style="margin-top:12px;font-size:.68rem;color:var(--dm);text-align:center;letter-spacing:2px">⬡ Languages: Kannada · English · Hindi · Telugu</div>
+    </div>
+  </section>
+
+  <div class="ft"><span>BHARATH M S</span> &nbsp;·&nbsp; STARFLEET PERSONNEL FILE &nbsp;·&nbsp; <span>60+ COUNTRIES DEPLOYED</span><br><span style="font-size:.54rem;opacity:.3;margin-top:5px;display:block">READ-ONLY ACCESS · SECURED BY ALPHA PROTOCOL · UNAUTHORISED MODIFICATION PROHIBITED</span></div>
+</div>
+
+<script>
+// STARFIELD
+const sf=document.getElementById('sf');
+for(let i=0;i<180;i++){const s=document.createElement('div');s.className='star';const sz=Math.random()*2.5+.4;s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--td:${Math.random()*3+1.5}s;animation-delay:${Math.random()*4}s;opacity:${Math.random()*.6+.1}`;sf.appendChild(s)}
+// CURSOR
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'});
+// INTRO
+function launch(){const i=document.getElementById('intro');i.style.transition='opacity 1s';i.style.opacity='0';setTimeout(()=>{i.style.display='none';document.getElementById('main').classList.add('on');startC()},1000)}
+document.getElementById('intro').addEventListener('click',launch);
+document.addEventListener('keydown',()=>{if(document.getElementById('intro').style.display!=='none')launch()});
+// CLOCK
+function ck(){const n=new Date();const t=n.toLocaleTimeString('en-GB');const d=n.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});const e1=document.getElementById('lclock'),e2=document.getElementById('ldate'),e3=document.getElementById('hck');if(e1)e1.textContent=t;if(e2)e2.textContent=d;if(e3)e3.textContent=t.slice(0,5)}
+setInterval(ck,1000);ck();
+// COUNTERS
+function cnt(id,n,d){const e=document.getElementById(id);if(!e)return;let i=0;const s=Math.ceil(n/(d/40));const t=setInterval(()=>{i=Math.min(i+s,n);e.textContent=i;if(i>=n)clearInterval(t)},40)}
+function startC(){cnt('c1',60,900);cnt('c2',20,800);cnt('c3',4,500)}
+// NAV
+const nds=document.querySelectorAll('.nd');
+nds.forEach(d=>d.addEventListener('click',()=>document.getElementById(d.dataset.t)?.scrollIntoView({behavior:'smooth'})));
+const sc=['h0','h1','h2','h3','h4','h5','h6','h7'];
+const ob=new IntersectionObserver(e=>e.forEach(en=>{if(en.isIntersecting){const i=sc.indexOf(en.target.id);nds.forEach((d,j)=>d.classList.toggle('active',i===j))}}),{threshold:.3});
+sc.forEach(id=>{const el=document.getElementById(id);if(el)ob.observe(el)});
+</script>
+</body>
+</html>
