@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bharath M S :: Starfleet Personnel File</title>
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;800&family=Rajdhani:wght@300;400;600;700&family=Audiowide&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--sp:#03060f;--dp:#060d1a;--pb:rgba(6,18,42,.85);--bdr:rgba(64,180,255,.22);--bl:#40b4ff;--bg:rgba(64,180,255,.35);--bf:rgba(64,180,255,.06);--cy:#00f5d4;--cg:rgba(0,245,212,.3);--gd:#ffd166;--rd:#ff4d6d;--tx:#a8d4f5;--dm:#4a7fa5;--wh:#e8f4ff}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
@@ -155,6 +157,357 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
 .ft span{color:var(--bl)}
 .d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.4s}
 section{margin-bottom:18px}
+  /* ============================================================
+   TYPOGRAPHY FIX — bharathmsb.github.io
+   ============================================================
+   Author:   Typography Fix (Senior UX Engineer)
+   Purpose:  Improve readability without changing any design,
+             layout, colors, content, or animations.
+   
+   FONT IMPORTS — Add to <head> BEFORE this stylesheet:
+   
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+   
+   Font roles:
+     Space Grotesk  → Hero name, primary section headings
+     IBM Plex Mono  → Nav, labels, badges, tags, UI chrome (sci-fi shell)
+     IBM Plex Sans  → Body paragraphs, descriptions, bullets (KEY readability fix)
+   ============================================================ */
+
+/* ---------- CSS Custom Properties ---------- */
+:root {
+  --font-display:        'Space Grotesk', 'IBM Plex Mono', monospace;
+  --font-mono:           'IBM Plex Mono', 'JetBrains Mono', 'Fira Code', monospace;
+  --font-body:           'IBM Plex Sans', 'Inter', sans-serif;
+
+  --font-size-xs:        0.72rem;   /* 11.5px — system labels, footer */
+  --font-size-sm:        0.8rem;    /* 12.8px — nav, tags */
+  --font-size-base:      1rem;      /* 16px   — body */
+  --font-size-md:        1.0625rem; /* 17px   — slightly boosted body option */
+
+  --line-height-tight:   1.15;
+  --line-height-heading: 1.25;
+  --line-height-body:    1.75;
+
+  --letter-spacing-body:    0.012em;
+  --letter-spacing-label:   0.08em;
+  --letter-spacing-ui:      0.12em;
+  --letter-spacing-heading: 0.04em;
+}
+
+/* ---------- Base ---------- */
+html {
+  font-size: 16px; /* Ensures rem base is consistent */
+}
+
+body {
+  font-family: var(--font-mono); /* Keep monospace shell — it's the theme */
+  font-size: var(--font-size-base);
+  line-height: 1.65;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+/* ============================================================
+   HEADINGS
+   ============================================================ */
+
+/* H1 — Main hero name "BHARATH M S" */
+h1,
+.hero-name,
+.main-name,
+.terminal-name {
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  line-height: var(--line-height-tight) !important;
+  letter-spacing: 0.06em !important;
+}
+
+/* H2 — Section headings (PROFILE, SKILLS, MISSIONS…) */
+h2,
+.section-title,
+.section-heading,
+.panel-heading,
+.panel-title {
+  font-family: var(--font-display) !important;
+  font-weight: 600 !important;
+  line-height: var(--line-height-heading) !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* H3 — Sub-section / job titles */
+h3,
+.subsection-title,
+.role-title,
+.job-title,
+.company-title {
+  font-family: var(--font-mono) !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  letter-spacing: var(--letter-spacing-heading) !important;
+}
+
+/* H4–H6 — Smaller headings */
+h4, h5, h6 {
+  font-family: var(--font-mono) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* ============================================================
+   BODY TEXT — THE CORE READABILITY FIX
+   Switch all long-form text from monospace to IBM Plex Sans
+   ============================================================ */
+
+p,
+li,
+.bio,
+.profile-text,
+.about-text,
+.description,
+.summary,
+.job-description,
+.mission-text,
+.experience-text,
+.project-description,
+.honours-text,
+.award-description,
+.contact-description {
+  font-family: var(--font-body) !important;
+  font-size: var(--font-size-base) !important;
+  line-height: var(--line-height-body) !important;
+  font-weight: 400 !important;
+  letter-spacing: var(--letter-spacing-body) !important;
+}
+
+/* Bold/strong within body text */
+p strong,
+p b,
+li strong,
+li b {
+  font-family: var(--font-body) !important;
+  font-weight: 600 !important;
+}
+
+/* ============================================================
+   NAVIGATION / TABS
+   ============================================================ */
+
+nav,
+nav a,
+nav li,
+.nav,
+.nav-item,
+.nav-link,
+.menu-item,
+.tab,
+.tab-item,
+.section-nav,
+.section-tab {
+  font-family: var(--font-mono) !important;
+  font-size: var(--font-size-sm) !important;
+  font-weight: 500 !important;
+  letter-spacing: var(--letter-spacing-label) !important;
+}
+
+/* ============================================================
+   SKILL TAGS / TECH BADGES
+   ============================================================ */
+
+.tag,
+.badge,
+.skill-tag,
+.tech-tag,
+.tech-chip,
+.module-tag,
+.chip,
+[class*="tag"],
+[class*="badge"],
+[class*="chip"],
+[class*="module"] span,
+[class*="skill-item"],
+[class*="tech-item"] {
+  font-family: var(--font-mono) !important;
+  font-size: 0.78rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.06em !important;
+  line-height: 1.4 !important;
+}
+
+/* Skill bar labels */
+.skill-name,
+.skill-label,
+.skill-bar-label,
+.skill-bar-years,
+[class*="skill-name"],
+[class*="skill-label"],
+[class*="skill-years"] {
+  font-family: var(--font-mono) !important;
+  font-size: 0.85rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* ============================================================
+   STAT COUNTERS & METRICS
+   ============================================================ */
+
+.stat-value,
+.stat-number,
+.counter-value,
+.counter-number,
+[class*="stat-value"],
+[class*="counter-value"],
+[class*="exp-value"] {
+  font-family: var(--font-mono) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+.stat-label,
+.stat-unit,
+.counter-label,
+[class*="stat-label"],
+[class*="counter-label"] {
+  font-family: var(--font-mono) !important;
+  font-size: var(--font-size-xs) !important;
+  font-weight: 500 !important;
+  letter-spacing: var(--letter-spacing-label) !important;
+}
+
+/* ============================================================
+   HUD / STATUS BAR / SYSTEM UI CHROME
+   (● LIVE----:--:-- / NODE: SAMSUNG-SRIB-BLR / CLEARANCE: ALPHA-7)
+   ============================================================ */
+
+.hud,
+.status-bar,
+.system-bar,
+.clearance-bar,
+.node-bar,
+.live-indicator,
+[class*="hud"],
+[class*="status-bar"],
+[class*="system-bar"],
+[class*="clearance"],
+[class*="node"],
+[class*="live"] {
+  font-family: var(--font-mono) !important;
+  font-size: var(--font-size-xs) !important;
+  font-weight: 400 !important;
+  letter-spacing: var(--letter-spacing-ui) !important;
+}
+
+/* ============================================================
+   METADATA — Dates, Location, Company Names in listings
+   ============================================================ */
+
+.meta,
+.date,
+.date-range,
+.location,
+.company-meta,
+.employer,
+[class*="meta"],
+[class*="date"],
+[class*="location"],
+[class*="employer"] {
+  font-family: var(--font-mono) !important;
+  font-size: 0.85rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.06em !important;
+}
+
+/* ============================================================
+   CODE / PRE
+   ============================================================ */
+
+code,
+pre,
+.code-block,
+[class*="code"] {
+  font-family: var(--font-mono) !important;
+  font-size: 0.875rem !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* ============================================================
+   SPLASH / INTRO SCREEN
+   "[ CLICK OR PRESS ANY KEY TO ACCESS FILE ]"
+   ============================================================ */
+
+.splash,
+.intro,
+.entry-screen,
+.splash-text,
+.intro-text,
+.access-prompt,
+[class*="splash"],
+[class*="intro"],
+[class*="entry"],
+[class*="access-prompt"],
+[class*="click-to-enter"] {
+  font-family: var(--font-mono) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.18em !important;
+}
+
+/* ============================================================
+   FOOTER / LEGAL WATERMARK
+   ============================================================ */
+
+footer,
+.footer,
+.footer-text,
+[class*="footer"] {
+  font-family: var(--font-mono) !important;
+  font-size: var(--font-size-xs) !important;
+  font-weight: 400 !important;
+  letter-spacing: var(--letter-spacing-ui) !important;
+}
+
+/* ============================================================
+   PROJECT SYSTEM IDs (SYS-001, SYS-002…)
+   ============================================================ */
+
+.sys-id,
+.project-id,
+.system-id,
+[class*="sys-id"],
+[class*="project-id"],
+[class*="system-id"] {
+  font-family: var(--font-mono) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  font-size: 0.8rem !important;
+}
+
+/* ============================================================
+   DOMAIN TAGS (⬡ CORE DOMAINS: SEMANTIC SEARCH · FULL STACK…)
+   ============================================================ */
+
+.core-domains,
+.domain-bar,
+[class*="core-domain"],
+[class*="domain-bar"],
+[class*="domain-tag"] {
+  font-family: var(--font-mono) !important;
+  font-size: var(--font-size-xs) !important;
+  font-weight: 500 !important;
+  letter-spacing: var(--letter-spacing-ui) !important;
+}
+
+/* ============================================================
+   END — typography-override.css
+   ============================================================ */
 </style>
 </head>
 <body>
